@@ -1,11 +1,14 @@
 import image_generator
 import random
 
-class mazer:
-    def __init__(self, size=100, start=0, end=size):
-        self.size = size
-        self.start = start
-        self.end = end
+def generate_maze(size = 100, start=0, end = size):
+    points = []
+    visited = []
+    current_point = (0, 0)
+    while current_point != (end, end) and has_sides():
+        
+        
 
-    def generate_maze()
-    image_generator.generate_photo('test.png', lines, 25)
+    image_generator.generate_photo_with_points('test.png', points, size)
+
+generate_maze(size=5000)
