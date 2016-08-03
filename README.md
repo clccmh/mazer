@@ -1,2 +1,2 @@
 # Mazer
-### A maze generator written in python
+### A procedural maze generator written in python
