@@ -3,28 +3,39 @@ from PIL import Image
 from PIL import ImageDraw
 from PIL import ImageColor
 
+def generate_new_photo(size):
+    return Image.new('RGB', [size*2, size*2], color='black')
 
-def generate_photo_with_lines(name, lines, size):
 
-    im = Image.new('RGB', [size, size], color='white')
-
-    draw = ImageDraw.Draw(im, mode='RGB')
-
-    for line in lines:
-        draw.line(line, fill=0)
-    #draw.line((0, im.size[1], im.size[0], 0), fill=0)
-    del draw
-
-    im.save(name)
-
-def generate_photo_with_points(name, points, size):
-
-    im = Image.new('RGB', [size, size], color='white')
+def add_cells_to_maze(photo, points):
+    im = photo
 
     draw = ImageDraw.Draw(im, mode='RGB')
 
     for point in points:
-        draw.point(point, fill=0)
+        draw.point((point[0]*2, point[1]*2), fill=0)
     del draw
 
-    im.save(name)
+    return im
+
+def add_passages_to_maze(photo, points):
+    im = photo
+
+    draw = ImageDraw.Draw(im, mode='RGB')
+
+    for point in points:
+        if point[2] == 0:
+            draw.point((point[0]*2 + 1, point[1]*2), fill=0)
+        elif point[2] == 1:
+            draw.point((point[0]*2 - 1, point[1]*2), fill=0)
+        elif point[2] == 2:
+            draw.point((point[0]*2, point[1]*2 + 1), fill=0)
+        elif point[2] == 3:
+            draw.point((point[0]*2, point[1]*2 - 1), fill=0)
+    del draw
+
+    return im
+
+
+def save_photo(photo, name):
+    photo.save(name)
