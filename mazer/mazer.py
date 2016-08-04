@@ -1,6 +1,5 @@
 import image_generator
-from PIL import Image
-import random
+import random, time
 
 def generate_random(size = 100, start=0, end=0):
     points = []
@@ -76,8 +75,13 @@ def generate_simple_maze(size = 100, start=(0,0), end=(0,0)):
     return [part_of_maze, passage_walls]
 
 
-maze = generate_simple_maze()
-im = image_generator.generate_new_photo(100)
-image_generator.add_cells_to_maze(im, maze[0])
-image_generator.add_passages_to_maze(im, maze[1])
-image_generator.save_photo(im, 'test.png')
+if __name__ == "__main__":
+    for i in [10, 100, 200, 500, 1000]:
+        start = time.time()
+        maze = generate_simple_maze(size=i)
+        im = image_generator.generate_new_photo(i)
+        image_generator.add_cells_to_maze(im, maze[0])
+        image_generator.add_passages_to_maze(im, maze[1])
+        image_generator.save_photo(im, 'test' + str(i) + '.png')
+        print(str(i) + '\t' + time.strftime("%M : %S", time.localtime(time.time() - start)), flush=True)
+
